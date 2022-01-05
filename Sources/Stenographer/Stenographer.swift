@@ -7,10 +7,10 @@ import OSLog
 import Pulse
 import Logging
 
-public typealias OSLogger = os.Logger
-public typealias SwiftLogger = Logging.Logger
+internal typealias OSLogger = os.Logger
+internal typealias SwiftLogger = Logging.Logger
 
-public protocol Loggable {
+internal protocol Loggable {
     var osLogger: os.Logger { get }
     var swiftLogger: SwiftLogger { get }
     var category: String { get }
@@ -22,9 +22,9 @@ public protocol Loggable {
 }
 
 public struct Log: Loggable {
-    public let osLogger: OSLogger
-    public let swiftLogger: SwiftLogger
-    public let category: String
+    let osLogger: OSLogger
+    let swiftLogger: SwiftLogger
+    let category: String
 
     public init(category: String, level: Logging.Logger.Level = .trace, subsystem: String? = nil) {
         self.category = category
@@ -34,15 +34,12 @@ public struct Log: Loggable {
         logger.logLevel = level
         self.swiftLogger = logger
     }
-}
-
-public extension Loggable {
 
     /// Log a message that is useful only during debugging
     /// - Parameter message: message to log
     ///
     /// Logged message is not persisted and is the most performant loging level
-    func debug(_ message: String) {
+    public func debug(_ message: String) {
         swiftLogger.debug(.init(stringLiteral: message))
         osLogIfAvailable(.debug, message)
     }
@@ -51,7 +48,7 @@ public extension Loggable {
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted only during `log collect`
-    func info(_ message: String) {
+    public func info(_ message: String) {
         swiftLogger.info(.init(stringLiteral: message))
         osLogIfAvailable(.info, message)
     }
@@ -60,7 +57,7 @@ public extension Loggable {
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted up to storage limit
-    func notice(_ message: String) {
+    public func notice(_ message: String) {
         swiftLogger.notice(.init(stringLiteral: message))
         osLogIfAvailable(.default, message)
     }
@@ -69,7 +66,7 @@ public extension Loggable {
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted up to storage limit
-    func error(_ message: String) {
+    public func error(_ message: String) {
         swiftLogger.error(.init(stringLiteral: message))
         osLogIfAvailable(.error, message)
     }
@@ -78,7 +75,7 @@ public extension Loggable {
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted up to storage limit
-    func fault(_ message: String) {
+    public func fault(_ message: String) {
         swiftLogger.critical(.init(stringLiteral: message))
         osLogIfAvailable(.fault, message)
     }
