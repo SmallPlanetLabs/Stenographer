@@ -21,11 +21,17 @@ internal protocol Loggable {
     func fault(_ message: String)
 }
 
+/// An object for writing interpolated string messages to the unified logging system & Pulse.
 public struct Log: Loggable {
     let osLogger: OSLogger
     let swiftLogger: SwiftLogger
     let category: String
-
+    
+    /// Creates a custom logger for logging to a specific subsystem and category.
+    /// - Parameters:
+    ///   - category: A category within the specified subsystem. The system uses this value to categorize and filter related log messages, and to group related logging settings within the subsystem. A category’s logging settings override those of the containing subsystem.
+    ///   - level: The log level the message was logged at.
+    ///   - subsystem: An identifier string, in reverse DNS notation, that represents the app subsystem that’s logging information, such as *com.your_company.your_subsystem_name*. The universal logging system uses this information to categorize and filter related log messages, and to group related logging settings. **Defaults to the Bundle ID or `UNKNOWN` if Bundle ID cannot be determined** .
     public init(category: String, level: Logging.Logger.Level = .trace, subsystem: String? = nil) {
         self.category = category
         let subsystem = subsystem ?? Bundle.main.bundleIdentifier ?? "UNKNOWN"
