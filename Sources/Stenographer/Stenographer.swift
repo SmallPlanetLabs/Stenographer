@@ -14,11 +14,11 @@ internal protocol Loggable {
     var osLogger: os.Logger { get }
     var swiftLogger: SwiftLogger { get }
     var category: String { get }
-    func debug(_ message: String)
-    func info(_ message: String)
-    func notice(_ message: String)
-    func error(_ message: String)
-    func fault(_ message: String)
+    func debug(_ message: @autoclosure () -> Message)
+    func info(_ message: @autoclosure () -> Message)
+    func notice(_ message: @autoclosure () -> Message)
+    func error(_ message: @autoclosure () -> Message)
+    func fault(_ message: @autoclosure () -> Message)
 }
 
 /// An object for writing interpolated string messages to the unified logging system & Pulse.
@@ -45,45 +45,45 @@ public struct Log: Loggable {
     /// - Parameter message: message to log
     ///
     /// Logged message is not persisted and is the most performant loging level
-    public func debug(_ message: String) {
-        swiftLogger.debug(.init(stringLiteral: message))
-        osLogIfAvailable(.debug, message)
+    public func debug(_ message: @autoclosure () -> Message) {
+        swiftLogger.debug(.init(stringLiteral: message().description))
+        osLogIfAvailable(.debug, message().description)
     }
 
     /// Log a message that is helpful but not essential for troubleshooting
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted only during `log collect`
-    public func info(_ message: String) {
-        swiftLogger.info(.init(stringLiteral: message))
-        osLogIfAvailable(.info, message)
+    public func info(_ message: @autoclosure () -> Message) {
+        swiftLogger.info(.init(stringLiteral: message().description))
+        osLogIfAvailable(.info,  message().description)
     }
 
     /// Log a message essential for troubleshooting
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted up to storage limit
-    public func notice(_ message: String) {
-        swiftLogger.notice(.init(stringLiteral: message))
-        osLogIfAvailable(.default, message)
+    public func notice(_ message: @autoclosure () -> Message) {
+        swiftLogger.notice(.init(stringLiteral:  message().description))
+        osLogIfAvailable(.default,  message().description)
     }
 
     /// Log a message representing an error seen during execution
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted up to storage limit
-    public func error(_ message: String) {
-        swiftLogger.error(.init(stringLiteral: message))
-        osLogIfAvailable(.error, message)
+    public func error(_ message: @autoclosure () -> Message) {
+        swiftLogger.error(.init(stringLiteral:  message().description))
+        osLogIfAvailable(.error,  message().description)
     }
 
     /// Log a serious message that will always be logged
     /// - Parameter message: message to log
     ///
     /// Logged message is persisted up to storage limit
-    public func fault(_ message: String) {
-        swiftLogger.critical(.init(stringLiteral: message))
-        osLogIfAvailable(.fault, message)
+    public func fault(_ message: @autoclosure () -> Message) {
+        swiftLogger.critical(.init(stringLiteral:  message().description))
+        osLogIfAvailable(.fault,  message().description)
     }
 
     private func osLogIfAvailable(_ type: OSLogType, _ message: String) {
