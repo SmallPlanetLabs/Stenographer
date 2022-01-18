@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		941F72D22797393D0092DB0A /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942851B22797392300511B52 /* Example.swift */; };
+		942851B32797392300511B52 /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942851B22797392300511B52 /* Example.swift */; };
 		94FAC7B7278F7266004F135B /* Tests_iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FAC7B6278F7266004F135B /* Tests_iOS.swift */; };
 		94FAC7B9278F7266004F135B /* Tests_iOSLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FAC7B8278F7266004F135B /* Tests_iOSLaunchTests.swift */; };
 		94FAC7C3278F7266004F135B /* Tests_macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94FAC7C2278F7266004F135B /* Tests_macOS.swift */; };
@@ -39,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		942851B22797392300511B52 /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		94FAC79E278F7265004F135B /* StenographerExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StenographerExampleApp.swift; sourceTree = "<group>"; };
 		94FAC79F278F7265004F135B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		94FAC7A0278F7266004F135B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -104,6 +107,7 @@
 		94FAC79D278F7265004F135B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				942851B22797392300511B52 /* Example.swift */,
 				94FAC79E278F7265004F135B /* StenographerExampleApp.swift */,
 				94FAC79F278F7265004F135B /* ContentView.swift */,
 				94FAC7A0278F7266004F135B /* Assets.xcassets */,
@@ -321,6 +325,7 @@
 			files = (
 				94FAC7C8278F7266004F135B /* ContentView.swift in Sources */,
 				94FAC7C6278F7266004F135B /* StenographerExampleApp.swift in Sources */,
+				941F72D22797393D0092DB0A /* Example.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +333,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				942851B32797392300511B52 /* Example.swift in Sources */,
 				94FAC7C9278F7266004F135B /* ContentView.swift in Sources */,
 				94FAC7C7278F7266004F135B /* StenographerExampleApp.swift in Sources */,
 			);

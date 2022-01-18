@@ -24,7 +24,8 @@ struct StenographerExampleApp: App {
                 .onAppear {
                     let log = Log(category: "⚠️ Test")
                     let world = "world"
-                    log.debug("Hello \(world, privacy: .private)!")
+                    let exampleObject = Example(name: "Small Planet")
+                    log.debug("Hello \(world, privacy: .private)!", metadata: ["Test Object": "\(exampleObject)"])
                 }
         }
     }

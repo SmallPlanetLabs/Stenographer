@@ -14,11 +14,11 @@ internal protocol Loggable {
     var osLogger: os.Logger { get }
     var swiftLogger: SwiftLogger { get }
     var category: String { get }
-    func debug(_ message: @autoclosure () -> Message)
-    func info(_ message: @autoclosure () -> Message)
-    func notice(_ message: @autoclosure () -> Message)
-    func error(_ message: @autoclosure () -> Message)
-    func fault(_ message: @autoclosure () -> Message)
+    func debug(_ message: @autoclosure () -> Message, metadata: @autoclosure () -> Logging.Logger.Metadata?, file: String, function: String, line: UInt)
+    func info(_ message: @autoclosure () -> Message, metadata: @autoclosure () -> Logging.Logger.Metadata?, file: String, function: String, line: UInt)
+    func notice(_ message: @autoclosure () -> Message, metadata: @autoclosure () -> Logging.Logger.Metadata?, file: String, function: String, line: UInt)
+    func error(_ message: @autoclosure () -> Message, metadata: @autoclosure () -> Logging.Logger.Metadata?, file: String, function: String, line: UInt)
+    func fault(_ message: @autoclosure () -> Message, metadata: @autoclosure () -> Logging.Logger.Metadata?, file: String, function: String, line: UInt)
 }
 
 /// An object for writing interpolated string messages to the unified logging system & Pulse.
@@ -42,47 +42,127 @@ public struct Log: Loggable {
     }
 
     /// Log a message that is useful only during debugging
-    /// - Parameter message: message to log
+    /// - Parameters:
+    ///    - message: Message to log.
+    ///    - metadata: One-off metadata to attach to this log message.
+    ///    - file: The file this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#file`).
+    ///    - function: The function this log message originates from (there's usually no need to pass it explicitly as
+    ///                it defaults to `#function`).
+    ///    - line: The line this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#line`).
     ///
     /// Logged message is not persisted and is the most performant loging level
-    public func debug(_ message: @autoclosure () -> Message) {
-        swiftLogger.debug(.init(stringLiteral: message().description))
+    public func debug(_ message: @autoclosure () -> Message,
+                      metadata: @autoclosure () -> Logging.Logger.Metadata? = nil,
+                      file: String = #file,
+                      function: String = #function,
+                      line: UInt = #line) {
+        swiftLogger.debug(.init(stringLiteral: message().description),
+                          metadata: metadata(),
+                          file: file,
+                          function: function,
+                          line: line)
         osLogIfAvailable(.debug, message().description)
     }
 
     /// Log a message that is helpful but not essential for troubleshooting
-    /// - Parameter message: message to log
+    /// - Parameters:
+    ///    - message: Message to log.
+    ///    - metadata: One-off metadata to attach to this log message.
+    ///    - file: The file this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#file`).
+    ///    - function: The function this log message originates from (there's usually no need to pass it explicitly as
+    ///                it defaults to `#function`).
+    ///    - line: The line this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#line`).
     ///
     /// Logged message is persisted only during `log collect`
-    public func info(_ message: @autoclosure () -> Message) {
-        swiftLogger.info(.init(stringLiteral: message().description))
+    public func info(_ message: @autoclosure () -> Message,
+                     metadata: @autoclosure () -> Logging.Logger.Metadata? = nil,
+                     file: String = #file,
+                     function: String = #function,
+                     line: UInt = #line) {
+        swiftLogger.info(.init(stringLiteral: message().description),
+                         metadata: metadata(),
+                         file: file,
+                         function: function,
+                         line: line)
         osLogIfAvailable(.info,  message().description)
     }
 
     /// Log a message essential for troubleshooting
-    /// - Parameter message: message to log
+    /// - Parameters:
+    ///    - message: Message to log.
+    ///    - metadata: One-off metadata to attach to this log message.
+    ///    - file: The file this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#file`).
+    ///    - function: The function this log message originates from (there's usually no need to pass it explicitly as
+    ///                it defaults to `#function`).
+    ///    - line: The line this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#line`).
     ///
     /// Logged message is persisted up to storage limit
-    public func notice(_ message: @autoclosure () -> Message) {
-        swiftLogger.notice(.init(stringLiteral:  message().description))
+    public func notice(_ message: @autoclosure () -> Message,
+                       metadata: @autoclosure () -> Logging.Logger.Metadata? = nil,
+                       file: String = #file,
+                       function: String = #function,
+                       line: UInt = #line) {
+        swiftLogger.notice(.init(stringLiteral:  message().description),
+                           metadata: metadata(),
+                           file: file,
+                           function: function,
+                           line: line)
         osLogIfAvailable(.default,  message().description)
     }
 
     /// Log a message representing an error seen during execution
-    /// - Parameter message: message to log
+    /// - Parameters:
+    ///    - message: Message to log.
+    ///    - metadata: One-off metadata to attach to this log message.
+    ///    - file: The file this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#file`).
+    ///    - function: The function this log message originates from (there's usually no need to pass it explicitly as
+    ///                it defaults to `#function`).
+    ///    - line: The line this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#line`).
     ///
     /// Logged message is persisted up to storage limit
-    public func error(_ message: @autoclosure () -> Message) {
-        swiftLogger.error(.init(stringLiteral:  message().description))
+    public func error(_ message: @autoclosure () -> Message,
+                      metadata: @autoclosure () -> Logging.Logger.Metadata? = nil,
+                      file: String = #file,
+                      function: String = #function,
+                      line: UInt = #line) {
+        swiftLogger.error(.init(stringLiteral:  message().description),
+                          metadata: metadata(),
+                          file: file,
+                          function: function,
+                          line: line)
         osLogIfAvailable(.error,  message().description)
     }
 
     /// Log a serious message that will always be logged
-    /// - Parameter message: message to log
+    /// - Parameters:
+    ///    - message: Message to log.
+    ///    - metadata: One-off metadata to attach to this log message.
+    ///    - file: The file this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#file`).
+    ///    - function: The function this log message originates from (there's usually no need to pass it explicitly as
+    ///                it defaults to `#function`).
+    ///    - line: The line this log message originates from (there's usually no need to pass it explicitly as it
+    ///            defaults to `#line`).
     ///
     /// Logged message is persisted up to storage limit
-    public func fault(_ message: @autoclosure () -> Message) {
-        swiftLogger.critical(.init(stringLiteral:  message().description))
+    public func fault(_ message: @autoclosure () -> Message,
+                      metadata: @autoclosure () -> Logging.Logger.Metadata? = nil,
+                      file: String = #file,
+                      function: String = #function,
+                      line: UInt = #line) {
+        swiftLogger.critical(.init(stringLiteral:  message().description),
+                             metadata: metadata(),
+                             file: file,
+                             function: function,
+                             line: line)
         osLogIfAvailable(.fault,  message().description)
     }
 
