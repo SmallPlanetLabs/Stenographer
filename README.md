@@ -4,8 +4,6 @@
 
 Note this is prerelease software subject to robust changes.
 
-![Animation of Catalog example application](/.github/resources/props-catalog-animated.gif "Props examples in Catalog sample app")
-
 ### Background
 
 The goal of this package is to provide an easy to use and universal method to log information to the Console via OSLog and using SwiftLog via Pulse.
