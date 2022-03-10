@@ -80,7 +80,7 @@ Logger.analytics.error("Analytics server returned error \(error)")
 
 ## License
 
-Props is free software distributed under the terms of the MIT license, reproduced below. Props may be used for any purpose, including commercial purposes, at absolutely no cost. No paperwork, no royalties, no GNU-like "copyleft" restrictions. Just download and enjoy.
+Stenographer is free software distributed under the terms of the MIT license, reproduced below. Stenographer may be used for any purpose, including commercial purposes, at absolutely no cost. No paperwork, no royalties, no GNU-like "copyleft" restrictions. Just download and enjoy.
 
 Copyright (c) 2022 [Small Planet Digital, LLC](http://smallplanet.com)
 
@@ -92,4 +92,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 ## About Small Planet
 
-Small Planet is a mobile agency in Brooklyn, NY that creates lovely experiences for smartphones and tablets. Props has made our lives a lot easier and we hope it does the same for you. You can find us at [smallplanet.com](http://smallplanet.com).
+Small Planet is a mobile agency in Brooklyn, NY that creates lovely experiences for smartphones and tablets. Stenographer has made our lives a lot easier and we hope it does the same for you. You can find us at [smallplanet.com](http://smallplanet.com).
